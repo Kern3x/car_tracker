@@ -4,7 +4,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:
 
 function track() {
     const tracknum = document.getElementById("tracknum").value;
-    fetch(`http://localhost:8000/track/${tracknum}`)
+    fetch(`http://hqnl0365908.online-vm.com:8000/track/${tracknum}`)
         .then(res => {
             if (!res.ok) throw new Error("Not found");
             return res.json();

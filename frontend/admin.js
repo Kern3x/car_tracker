@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8000"; // Тобі потрібно буде встановити правильну URL
+const API_BASE = "http://hqnl0365908.online-vm.com:8000"; // Тобі потрібно буде встановити правильну URL
 
 // 1. Додавання нової точки
 const addForm = document.getElementById("add-point-form");
@@ -16,7 +16,7 @@ addForm.addEventListener("submit", async (e) => {
     }))
     
     try {
-        const res = await fetch("http://localhost:8000/admin/set-location", {
+        const res = await fetch("http://hqnl0365908.online-vm.com:8000/admin/set-location", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

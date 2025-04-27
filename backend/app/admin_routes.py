@@ -2,7 +2,7 @@ from typing import List
 from sqlalchemy.orm import Session
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 
 from . import crud
 from .database import get_db
@@ -10,13 +10,13 @@ from .schemas import Location, LocationResponse
 
 
 admin_router = APIRouter()
-templates = Jinja2Templates(directory="frontend/templates")
+templates = Jinja2Templates(directory="/frontend/templates")
 
 
-@admin_router.get("/admin", response_class=HTMLResponse)
-async def get_admin_page(db: Session = Depends(get_db)):
+@admin_router.get("/", response_class=HTMLResponse)
+async def get_admin_page(request: Request, db: Session = Depends(get_db)):
     locations = crud.get_all_locations(db)
-    return templates.TemplateResponse("admin.html", {"request": {}, "locations": locations})
+    return templates.TemplateResponse("admin.html", {"request": request, "locations": locations})
 
 
 @admin_router.get("/locations", response_model=List[LocationResponse])

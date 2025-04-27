@@ -1,107 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Panel</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        button {
-            padding: 5px 10px;
-            margin: 5px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #ff6666;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
-        }
-        input {
-            padding: 10px;
-            margin: 5px;
-            width: 250px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        h2 {
-            text-align: center;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+      }
+      header {
+        background-color: #4caf50;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+      button {
+        padding: 5px 10px;
+        margin: 5px;
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #ff6666;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+      }
+      input {
+        padding: 10px;
+        margin: 5px;
+        width: 250px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      h2 {
+        text-align: center;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Admin Panel</h1>
+      <h1>Admin Panel</h1>
     </header>
 
     <form id="add-point-form">
-        <label for="tracknum">Tracking Number:</label>
-        <input type="text" id="tracknum" required><br>
+      <label for="tracknum">Tracking Number:</label>
+      <input type="text" id="tracknum" required /><br />
 
-        <label for="latitude">Latitude:</label>
-        <input type="text" id="latitude" required><br>
+      <label for="latitude">Latitude:</label>
+      <input type="text" id="latitude" required /><br />
 
-        <label for="longitude">Longitude:</label>
-        <input type="text" id="longitude" required><br>
+      <label for="longitude">Longitude:</label>
+      <input type="text" id="longitude" required /><br />
 
-        <button type="submit">Add Location</button>
+      <button type="submit">Add Location</button>
     </form>
 
     <h2>Existing Locations</h2>
     <table id="locations-table">
-        <thead>
-            <tr>
-                <th>Tracking Number</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ location.tracking_number }}</td>
-                <td>{{ location.latitude }}</td>
-                <td>{{ location.longitude }}</td>
-                <td>
-                    <button onclick="editLocation('{{ location.tracking_number }}')">Edit</button>
-                    <button onclick="deleteLocation('{{ location.tracking_number }}')">Delete</button>
-                </td>
-            </tr>
-        </tbody>
+      <thead>
+        <tr>
+          <th>Tracking Number</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for location in locations %}
+        <tr>
+          <td>{{ location.tracking_number }}</td>
+          <td>{{ location.latitude }}</td>
+          <td>{{ location.longitude }}</td>
+          <td>
+            <button onclick="editLocation('{{ location.tracking_number }}')">
+              Edit
+            </button>
+            <button onclick="deleteLocation('{{ location.tracking_number }}')">
+              Delete
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
 
-    <script src="admin.js"></script>
-</body>
+    <script src="/static/admin.js"></script>
+  </body>
 </html>

@@ -6,29 +6,35 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: cartracker
-    # volumes:
-    #   - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cartracker
 
   backend:
     build: ./backend
-    volumes:
-      - ./backend:/code
     ports:
-      - "8000:8000"
+      - "8000:8000"  # всередині мережі для npm
     depends_on:
       - db
+    volumes:
+      - ./frontend:/frontend
     environment:
       DATABASE_URL: postgresql://user:pass@db/cartracker
+    networks:
+      - cartracker
 
-  frontend:
-    image: nginx:latest
-    volumes:
-      - ./frontend:/usr/share/nginx/html
-      - ./frontend/nginx.conf:/etc/nginx/nginx.conf
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    restart: always
     ports:
-      - "80:80"
-    depends_on:
-      - backend
+      - "80:80"    # HTTP
+      - "81:81"    # адмінка NPM
+      - "443:443"  # HTTPS
+    volumes:
+      - ./npm/data:/data
+      - ./npm/letsencrypt:/etc/letsencrypt
+    networks:
+      - cartracker
 
-# volumes:
-#   postgres_data:
+networks:
+  cartracker:
+    driver: bridge

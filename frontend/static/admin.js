@@ -1,4 +1,4 @@
-const API_BASE = "http://hqnl0365908.online-vm.com:8000"; // Тобі потрібно буде встановити правильну URL
+const API_BASE = "http://localhost:8000"; // Тобі потрібно буде встановити правильну URL
 
 // 1. Додавання нової точки
 const addForm = document.getElementById("add-point-form");
@@ -16,7 +16,7 @@ addForm.addEventListener("submit", async (e) => {
     }))
     
     try {
-        const res = await fetch("http://hqnl0365908.online-vm.com:8000/admin/set-location", {
+        const res = await fetch("http://localhost:8000/admin/set-location", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -30,7 +30,6 @@ addForm.addEventListener("submit", async (e) => {
 
         if (!res.ok) throw new Error("Failed to add location");
 
-        alert("Location added successfully");
         loadLocations(); // Оновити список точок
     } catch (error) {
         console.error(error);
@@ -90,7 +89,6 @@ async function editLocation(tracknum) {
 
         if (!res.ok) throw new Error("Failed to edit location");
 
-        alert("Location updated");
         loadLocations();  // Перезавантажуємо локації
     } catch (error) {
         console.error("Error editing location", error);
@@ -111,7 +109,6 @@ async function deleteLocation(tracknum) {
 
             if (!res.ok) throw new Error("Failed to delete location");
 
-            alert("Location deleted");
             loadLocations();  // Перезавантажуємо локації
         } catch (error) {
             console.error("Error deleting location", error);

@@ -1,5 +1,7 @@
-from . import models
 from sqlalchemy.orm import Session
+from sqlalchemy import func
+from . import models
+from datetime import datetime
 
 
 def get_all_locations(db: Session):
@@ -10,6 +12,29 @@ def get_location_by_track_number(db: Session, track_number: str):
     return (
         db.query(models.Location)
         .filter(models.Location.tracking_number == track_number)
+        .order_by(models.Location.timestamp.desc())
+        .first()
+    )
+
+
+def get_location_by_date(db: Session, track_number: str, date: datetime):
+    return (
+        db.query(models.Location)
+        .filter(models.Location.tracking_number == track_number)
+        .order_by(func.abs(func.extract("epoch", models.Location.timestamp - date)))
+        .first()
+    )
+
+
+def get_closest_location_to_date(
+    db: Session, tracking_number: str, target_date: datetime
+):
+    return (
+        db.query(models.Location)
+        .filter(models.Location.tracking_number == tracking_number)
+        .order_by(
+            func.abs(func.extract("epoch", models.Location.timestamp - target_date))
+        )
         .first()
     )
 
@@ -19,6 +44,7 @@ def create_location(db: Session, location):
         tracking_number=location.tracking_number,
         latitude=location.latitude,
         longitude=location.longitude,
+        timestamp=location.timestamp or datetime.utcnow(),
     )
     db.add(db_location)
     db.commit()
@@ -26,24 +52,8 @@ def create_location(db: Session, location):
     return db_location
 
 
-def update_location(db: Session, location: models.Location):
-    db.query(models.Location).filter(
-        models.Location.tracking_number == location.tracking_number
-    ).update(
-        {
-            models.Location.latitude: location.latitude,
-            models.Location.longitude: location.longitude,
-        }
-    )
-    db.commit()
-
-
-def delete_location(db: Session, track_number: str):
-    location = (
-        db.query(models.Location)
-        .filter(models.Location.tracking_number == track_number)
-        .first()
-    )
+def delete_location(db: Session, id: int):
+    location = db.query(models.Location).filter(models.Location.id == id).first()
     if location:
         db.delete(location)
         db.commit()

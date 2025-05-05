@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -22,10 +24,11 @@ class Location(BaseModel):
     tracking_number: str
     latitude: float
     longitude: float
+    timestamp: datetime | None = None
 
 
 class LocationResponse(Location):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True

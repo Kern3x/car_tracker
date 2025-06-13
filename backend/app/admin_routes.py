@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 import secrets
 
 from . import crud
-from config import config
+from .config import config
 from .database import get_db
 from .schemas import Location, LocationResponse
 

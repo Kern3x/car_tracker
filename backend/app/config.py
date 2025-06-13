@@ -18,7 +18,7 @@ class BaseConfig:
     POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
     POSTGRES_HOST = os.environ.get("POSTGRES_HOST")
 
-    DB_URL = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_DB}"
+    DB_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_DB}"
 
 
 class DevelopmentConfig:

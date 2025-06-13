@@ -13,8 +13,8 @@ services:
     build: ./backend
     expose:
       - "8000" # Only inside network
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
     volumes:
       - ./frontend:/frontend
     networks:

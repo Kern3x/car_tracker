@@ -13,13 +13,12 @@ class BaseConfig:
     ADMIN_LOGIN = os.environ.get("ADMIN_LOGIN")
     ADMIN_PASSWD = os.environ.get("ADMIN_PASSWD")
 
-    POSTGRES_DB = os.environ.get("POSTGRES_DB")
-    POSTGRES_USER = os.environ.get("POSTGRES_USER")
-    POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
-    POSTGRES_HOST = os.environ.get("POSTGRES_HOST")
+    # POSTGRES_DB = os.environ.get("POSTGRES_DB")
+    # POSTGRES_USER = os.environ.get("POSTGRES_USER")
+    # POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+    # POSTGRES_HOST = os.environ.get("POSTGRES_HOST")
 
-    DB_URL = f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_DB}"
-
+    DB_URL = "sqlite:///database.db"
 
 class DevelopmentConfig:
     """Development configuration."""

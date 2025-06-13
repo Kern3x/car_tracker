@@ -3,3 +3,4 @@ nginx.conf
 kml_content.txt
 route_points.kml
 test.py
+.env

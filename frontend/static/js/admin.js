@@ -25,7 +25,6 @@ addForm.addEventListener("submit", async (e) => {
 
     loadLocations();
 
-    // Очищаємо форму
     addForm.reset();
   } catch (error) {
     console.error(error);
@@ -51,8 +50,8 @@ async function loadLocations() {
         <td>${location.longitude}</td>
         <td>${new Date(location.timestamp).toLocaleString()}</td>
         <td>
-          <button onclick="editLocation(${location.tracking_number})">Редактировать</button>
-          <button onclick="deleteLocation(${location.tracking_number})">Удалить</button>
+          <button onclick="editLocation('${location.tracking_number}')">Редактировать</button>
+          <button onclick="deleteLocation('${location.tracking_number}')">Удалить</button>
         </td>
       `;
       tableBody.appendChild(row);

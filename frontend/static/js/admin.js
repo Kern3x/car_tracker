@@ -111,8 +111,10 @@ async function editLocation(tracknum) {
 
 async function deleteLocation(id) {
   if (confirm("Вы уверены, что хотите удалить эту точку?")) {
+    const numericId = parseInt(id, 10);
+
     try {
-      const res = await fetch(`${API_BASE}/delete-location?id=${id}`, {
+      const res = await fetch(`${API_BASE}/delete-location?id=${numericId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

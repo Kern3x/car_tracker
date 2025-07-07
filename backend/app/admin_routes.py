@@ -91,9 +91,10 @@ async def delete_location(
     _: HTTPBasicCredentials = Depends(check_admin),
 ):
     db_location = crud.get_location_by_track_number(db, track_number=tracking_number)
+
     if not db_location:
         raise HTTPException(status_code=404, detail="Location not found")
 
-    db.delete(db_location)
-    db.commit()
-    return db_location
+    deleted = crud.delete_locations_by_track_number(db, tracking_number=tracking_number)
+
+    return deleted

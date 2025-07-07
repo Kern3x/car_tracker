@@ -90,7 +90,7 @@ async def delete_location(
     db: Session = Depends(get_db),
     _: HTTPBasicCredentials = Depends(check_admin),
 ):
-    db_location = crud.get_location_by_id(db, id)
+    db_location = crud.get_location_by_id(db, int(id))
 
     if not db_location:
         raise HTTPException(status_code=404, detail="Location not found")

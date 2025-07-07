@@ -51,12 +51,12 @@ async function loadLocations() {
         <td>${location.longitude}</td>
         <td>${new Date(location.timestamp).toLocaleString()}</td>
         <td>
-          <button onclick="editLocation(${
+          <button onclick="editLocation('${
             location.tracking_number
-          })">Редактировать</button>
-          <button onclick="deleteLocation(${
+          }')">Редактировать</button>
+          <button onclick="deleteLocation('${
             location.tracking_number
-          })">Удалить</button>
+          }')">Удалить</button>
         </td>
       `;
       tableBody.appendChild(row);

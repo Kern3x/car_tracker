@@ -49,9 +49,7 @@
             <button onclick="editLocation('{{ location.tracking_number }}')">
               Редактировать
             </button>
-            <button onclick="deleteLocation('{{ location.tracking_number }}')">
-              Удалить
-            </button>
+            <button onclick="deleteLocation({{ location.id }})">Удалить</button>
           </td>
         </tr>
         {% endfor %}

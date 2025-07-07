@@ -52,9 +52,11 @@ def create_location(db: Session, location):
     return db_location
 
 
-def delete_location(db: Session, id: int):
-    location = db.query(models.Location).filter(models.Location.id == id).first()
-    if location:
-        db.delete(location)
-        db.commit()
-    return location
+def delete_locations_by_track_number(db: Session, track_number: str) -> int:
+    deleted = (
+        db.query(models.Location)
+        .filter(models.Location.tracking_number == track_number)
+        .delete()
+    )
+    db.commit()
+    return deleted

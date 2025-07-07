@@ -95,6 +95,6 @@ async def delete_location(
     if not db_location:
         raise HTTPException(status_code=404, detail="Location not found")
 
-    deleted = crud.delete_locations_by_track_number(db, tracking_number=tracking_number)
+    deleted = crud.delete_locations_by_track_number(db, track_number=tracking_number)
 
     return deleted

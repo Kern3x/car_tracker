@@ -25,6 +25,7 @@ addForm.addEventListener("submit", async (e) => {
 
     loadLocations();
 
+    // Очищаємо форму
     addForm.reset();
   } catch (error) {
     console.error(error);
@@ -50,8 +51,12 @@ async function loadLocations() {
         <td>${location.longitude}</td>
         <td>${new Date(location.timestamp).toLocaleString()}</td>
         <td>
-          <button onclick="editLocation('${location.tracking_number}')">Редактировать</button>
-          <button onclick="deleteLocation('${location.tracking_number}')">Удалить</button>
+          <button onclick="editLocation(${
+            location.tracking_number
+          })">Редактировать</button>
+          <button onclick="deleteLocation(${
+            location.tracking_number
+          })">Удалить</button>
         </td>
       `;
       tableBody.appendChild(row);
@@ -61,12 +66,27 @@ async function loadLocations() {
   }
 }
 
+function parseCustomDate(dateString) {
+  const [datePart, timePart] = dateString.split(" ");
+  const [day, month, year] = datePart.split(".");
+  const [hours, minutes] = timePart.split(":");
+
+  // Формуємо ISO дату
+  return new Date(year, month - 1, day, hours, minutes).toISOString();
+}
+
 async function editLocation(tracknum) {
   const newLat = parseFloat(prompt("Введите новую широту:"));
   const newLng = parseFloat(prompt("Введите новую долготу:"));
-  const newTime = prompt("Введите новую дату и время (ISO формат):");
+  const customTime = prompt(
+    "Введите новую дату и время (в формате ДД.ММ.ГГГГ ЧЧ:ММ):"
+  );
 
   try {
+    const newTimeISO = parseCustomDate(customTime);
+
+    php;
+    Копіювати;
     const res = await fetch(`${API_BASE}/edit-location`, {
       method: "PUT",
       headers: {
@@ -76,7 +96,7 @@ async function editLocation(tracknum) {
         tracking_number: tracknum,
         latitude: newLat,
         longitude: newLng,
-        timestamp: newTime,
+        timestamp: newTimeISO,
       }),
     });
 
@@ -85,7 +105,7 @@ async function editLocation(tracknum) {
     loadLocations();
   } catch (error) {
     console.error("Error editing location", error);
-    alert("Возникла ошибка при редактировании точки!");
+    alert("Ошибка при редактировании точки!");
   }
 }
 

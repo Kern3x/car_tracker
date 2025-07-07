@@ -86,15 +86,16 @@ async def edit_location(
 
 @admin_router.delete("/delete-location", response_model=LocationResponse)
 async def delete_location(
-    tracking_number: str,
+    id: int,
     db: Session = Depends(get_db),
     _: HTTPBasicCredentials = Depends(check_admin),
 ):
-    db_location = crud.get_location_by_track_number(db, track_number=tracking_number)
+    db_location = crud.get_location_by_id(db, id)
 
     if not db_location:
         raise HTTPException(status_code=404, detail="Location not found")
 
-    deleted = crud.delete_locations_by_track_number(db, track_number=tracking_number)
+    db.delete(db_location)
+    db.commit()
 
     return db_location

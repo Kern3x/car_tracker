@@ -109,18 +109,15 @@ async function editLocation(tracknum) {
   }
 }
 
-async function deleteLocation(tracknum) {
+async function deleteLocation(id) {
   if (confirm("Вы уверены, что хотите удалить эту точку?")) {
     try {
-      const res = await fetch(
-        `${API_BASE}/delete-location?tracking_number=${tracknum}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await fetch(`${API_BASE}/delete-location?id=${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!res.ok) throw new Error("Failed to delete location");
 

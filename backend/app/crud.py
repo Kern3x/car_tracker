@@ -17,6 +17,10 @@ def get_location_by_track_number(db: Session, track_number: str):
     )
 
 
+def get_location_by_id(db: Session, _id: int):
+    return db.query(models.Location).filter(models.Location.id == _id).first()
+    
+
 def get_location_by_date(db: Session, track_number: str, date: datetime):
     return (
         db.query(models.Location)

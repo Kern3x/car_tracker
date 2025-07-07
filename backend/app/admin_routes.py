@@ -97,4 +97,4 @@ async def delete_location(
 
     deleted = crud.delete_locations_by_track_number(db, track_number=tracking_number)
 
-    return deleted
+    return db_location

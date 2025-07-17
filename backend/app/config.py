@@ -18,7 +18,7 @@ class BaseConfig:
     # POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
     # POSTGRES_HOST = os.environ.get("POSTGRES_HOST")
 
-    DB_URL = "sqlite:///database.db"
+    DB_URL = "postgresql://frghjk:asdfgyu76trfvbj@db:5432/fewfewfwef"
 
 class DevelopmentConfig:
     """Development configuration."""

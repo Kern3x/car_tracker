@@ -6,7 +6,7 @@ from .database import Base
 
 
 class Location(Base):
-    __tablename__ = "locations"
+    __tablename__ = "map_locations"
 
     id = Column(Integer, primary_key=True, index=True)
     tracking_number = Column(String(26), primary_key=True)

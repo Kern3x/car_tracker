@@ -1,4 +1,14 @@
 services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "asdfgyu76trfvbj"
+      POSTGRES_DB: "fewfewfwef"
+      POSTGRES_USER: "frghjk"
+    networks:
+      - cartracker
+      
   static-site:
     image: nginx:alpine
     container_name: cartracker-static

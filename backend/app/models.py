@@ -9,7 +9,7 @@ class Location(Base):
     __tablename__ = "map_locations"
 
     id = Column(Integer, primary_key=True, index=True)
-    tracking_number = Column(String(26), primary_key=True)
+    tracking_number = Column(String(26), index=True) # primary_key=True
     latitude = Column(Float)
     longitude = Column(Float)
     timestamp = Column(DateTime, default=datetime.utcnow, index=True)
